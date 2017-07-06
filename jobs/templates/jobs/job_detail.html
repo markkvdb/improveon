@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}{{ job.name }}{% endblock %}
+
+{% block content %}
+    <h3>{{ job.name }}</h3>
+
+    <p>{{ job.description }}</p>
+{% endblock %}

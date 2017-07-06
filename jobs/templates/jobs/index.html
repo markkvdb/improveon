@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Jobs{% endblock %}
+
+{% block content %}
+    <h3>Jobs</h3>
+    <p>This is the jobs index page.</p>
+
+    <ul>
+    {% for job in jobs %}
+    <li><a href="{% url 'jobs:detail' company.id %}">{{ company.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}

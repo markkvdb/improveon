@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Companies{% endblock %}
+
+{% block content %}
+    <h3>Companies</h3>
+    <p>This is the companies index page.</p>
+
+    <ul>
+    {% for company in companies %}
+    <li><a href="{% url 'companies:detail' company.id %}">{{ company.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}
