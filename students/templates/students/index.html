@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Students{% endblock %}
+
+{% block content %}
+    <h3>Students</h3>
+    <p>This is the students index page.</p>
+
+    <ul>
+    {% for student in students %}
+    <li><a href="{% url 'students:detail' student.id %}">{{ student.first_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}

@@ -3,7 +3,7 @@
 {% block title %}{{ job.name }}{% endblock %}
 
 {% block content %}
-    <h3>{{ job.name }}</h3>
+    <h3>{{ job.name }} <small>{% if job.done %}done{% else %}open{% endif %}</small></h3>
 
     <p>{{ job.description }}</p>
 {% endblock %}

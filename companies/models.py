@@ -6,8 +6,10 @@ from core.models import TimeStampedModel
 class Company(TimeStampedModel):
 
     name = models.CharField(max_length=100)
+    email = models.EmailField()
     description = models.CharField(max_length=1000)
-    anonymous = models.BooleanField()
+    likes = models.IntegerField(default=0)
+    anonymous = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

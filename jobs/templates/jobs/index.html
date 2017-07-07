@@ -8,7 +8,7 @@
 
     <ul>
     {% for job in jobs %}
-    <li><a href="{% url 'jobs:detail' company.id %}">{{ company.name }}</a></li>
+    <li><a href="{% url 'jobs:detail' job.id %}">{{ job.name }}</a></li>
     {% endfor %}
     </ul>
 {% endblock %}
