@@ -9,3 +9,6 @@ class Tool(models.Model):
     description = models.CharField(max_length=1000)
     downloads = models.IntegerField(default=0)
     author = models.ForeignKey(Student, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name

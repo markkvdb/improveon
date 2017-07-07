@@ -8,3 +8,6 @@ class Student(models.Model):
     bio = models.CharField(max_length=1000)
     email = models.EmailField(default="default@email.com")
     phone_number = models.IntegerField()
+
+    def __str__(self):
+        return self.first_name + ' ' + self.last_name
