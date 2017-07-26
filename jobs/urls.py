@@ -9,4 +9,5 @@ app_name = 'jobs'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^(?P<pk>[0-9]+)/$', JobDetailView.as_view(), name='detail'),
+    url(r'^register/', views.register, name='register'),
 ]

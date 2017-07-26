@@ -3,7 +3,22 @@
 {% block title %}{{ tool.name }}{% endblock %}
 
 {% block content %}
-    <h3>{{ tool.name }}</h3>
-
-    <p>{{ tool.description }}</p>
+    <table>
+        <tr>
+            <td>Name</td>
+            <td>{{ tool.name }}</td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td>{{ tool.description }}</td>
+        </tr>
+        <tr>
+            <td>Author</td>
+            <td>{{ tool.author.user.first_name }}</td>
+        </tr>
+        <tr>
+            <td>Likes</td>
+            <td>{{ tool.likes }}</td>
+        </tr>
+    </table>
 {% endblock %}

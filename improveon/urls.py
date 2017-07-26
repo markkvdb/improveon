@@ -17,6 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 urlpatterns = [
+    url(r'^', include('core.urls')),
     url(r'^students/', include('students.urls')),
     url(r'^tools/', include('tools.urls')),
     url(r'^jobs/', include('jobs.urls')),

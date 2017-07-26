@@ -5,13 +5,22 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-<h1>ImproveOn <small>// platform to connect students with companies.</small></h1>
+<h1><a href="{% url 'core:index' %}">ImproveOn</a> <small>// platform to connect students with companies.</small></h1>
 
 <ul>
     <li><a href="{% url 'companies:index' %}">Companies</a></li>
     <li><a href="{% url 'jobs:index' %}">Jobs</a></li>
     <li><a href="{% url 'tools:index' %}">Tools</a></li>
-    <li><a href="{%  url 'students:index' %}">Students</a></li>
+    <li><a href="{% url 'students:index' %}">Students</a></li>
+</ul>
+
+<ul>
+{% if user.is_authenticated %}
+    <li><a href="{% url 'core:login_redirect' %}">Overview</a></li>
+    <li><a href="{% url 'core:logout' %}">Log out</a></li>
+{% else %}
+    <li><a href="{% url 'core:login' %}">Log in</a></li>
+{% endif %}
 </ul>
 
 <hr>

@@ -10,15 +10,15 @@ from .models import Student
 class StudentInline(admin.StackedInline):
     model = Student
     can_delete = False
-    verbose_name_plural = 'employee'
+    verbose_name_plural = 'students'
 
 # Define a new User admin
-class UserAdmin(BaseUserAdmin):
+class StudentUserAdmin(BaseUserAdmin):
     inlines = (StudentInline, )
 
 # Re-register UserAdmin
 admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
+admin.site.register(User, StudentUserAdmin)
 
 # Register your models here.
 admin.site.register(Student)

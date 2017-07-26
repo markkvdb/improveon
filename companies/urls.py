@@ -8,4 +8,6 @@ app_name = 'companies'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^(?P<pk>[0-9]+)/$', CompanyDetailView.as_view(), name='detail'),
+    url(r'^overview/', views.overview, name='overview'),
+    url(r'^signup/', views.signup, name='signup'),
 ]

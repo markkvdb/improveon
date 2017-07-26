@@ -13,12 +13,12 @@ class CompanyInline(admin.StackedInline):
     verbose_name_plural = 'companies'
 
 
-class UserAdmin(BaseUserAdmin):
+class CompanyUserAdmin(BaseUserAdmin):
     inlines = (CompanyInline, )
 
 # Re-register UserAdmin
 admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
+admin.site.register(User, CompanyUserAdmin)
 
 # Register your models here.
 admin.site.register(Company)

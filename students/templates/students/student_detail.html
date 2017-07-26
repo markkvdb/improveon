@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}{{ student.first_name }}{% endblock %}
+{% block title %}{{ student.user.first_name }}{% endblock %}
 
 {% block content %}
-    <h3>{{ student.first_name }} {{ student.last_name }}</h3>
+    <h3>{{ student.user.first_name }} {{ student.user.last_name }}</h3>
 
     <p>{{ student.bio }}</p>
 {% endblock %}
