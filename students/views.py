@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth import login, authenticate
 from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse_lazy
@@ -46,7 +46,10 @@ def signup(request):
             user.refresh_from_db()  # load the profile instance created by the signal
             user.student.bio = form.cleaned_data.get('bio')
             user.student.phone_number = form.cleaned_data.get('phone_number')
-            user.groups.set(['students'])
+
+            # Add user to group
+            students_group = Group.objects.get(name='students')
+            user.groups.set([students_group])
             user.student.save()
             raw_password = form.clean_password2()
             user = authenticate(username=user.username, password=raw_password)

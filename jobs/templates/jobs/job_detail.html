@@ -3,7 +3,23 @@
 {% block title %}{{ job.name }}{% endblock %}
 
 {% block content %}
-    <h3>{{ job.name }} <small>{% if job.done %}done{% else %}open{% endif %}</small></h3>
-
-    <p>{{ job.description }}</p>
+    <h4>Info</h4>
+    <table>
+        <tr>
+            <td>Name</td>
+            <td>{{ job.name }}</td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td>{{ job.description }}</td>
+        </tr>
+        <tr>
+            <td>Company</td>
+            <td><a href="{% url 'companies:detail' job.company_id %}">{{ job.company.name }}</a></td>
+        </tr>
+        <tr>
+            <td>Status</td>
+            <td>{% if job.done %}done{% else %}open{% endif %}</td>
+        </tr>
+    </table>
 {% endblock %}

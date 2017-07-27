@@ -3,6 +3,7 @@
 {% block title %}Overview{% endblock %}
 
 {% block content %}
+    <h4>Information</h4>
     <table>
         <tr>
             <td>First name</td>
@@ -18,7 +19,7 @@
         </tr>
     </table>
 
-    <h4>Your tools:</h4>
+    <h4>Your tools</h4>
     <ul>
     {% for tool in tools %}
         <li><a href="{% url 'tools:detail' tool.id %}">{{ tool.name }}</a></li>

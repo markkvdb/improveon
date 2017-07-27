@@ -3,6 +3,7 @@
 {% block title %}{{ tool.name }}{% endblock %}
 
 {% block content %}
+    <h4>Info</h4>
     <table>
         <tr>
             <td>Name</td>
@@ -14,11 +15,18 @@
         </tr>
         <tr>
             <td>Author</td>
-            <td>{{ tool.author.user.first_name }}</td>
+            <td><a href="{% url 'students:detail' tool.author_id %}">{{ tool.author.user.first_name }}</a></td>
         </tr>
         <tr>
             <td>Likes</td>
             <td>{{ tool.likes }}</td>
         </tr>
     </table>
+
+    <h4>Download</h4>
+    {% if user.is_authenticated %}
+        <a class="button" href="#">Download</a>
+    {% else %}
+        To download this tool, you need to login. <a href="{% url 'core:login' %}">Click here to login</a>
+    {% endif %}
 {% endblock %}
