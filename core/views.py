@@ -9,7 +9,7 @@ from companies.models import Company
 
 
 # Create your views here.
-@login_required(login_url='core/login,html')
+@login_required(login_url='core/login.html')
 def login_redirect(request):
     user_login = None
     student_or_company = None

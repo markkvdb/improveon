@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.views.generic.detail import DetailView
@@ -22,7 +22,7 @@ def index(request):
 class CompanyDetailView(DetailView):
     model = Company
 
-
+@permission_required('companies.change_company', login_url=reverse_lazy('core:login'))
 @login_required(login_url=reverse_lazy('core:login'))
 def overview(request):
     company_user = None
@@ -44,6 +44,7 @@ def signup(request):
             user.company.name = form.cleaned_data.get('name')
             user.company.bio = form.cleaned_data.get('bio')
             user.company.anonymous = form.cleaned_data.get('anonymous')
+            user.groups.set(['companies'])
             user.company.save()
             raw_password = form.clean_password2()
             user = authenticate(username=user.username, password=raw_password)

@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
+from django.core.exceptions import ObjectDoesNotExist
 
 from tools.models import Tool
 
@@ -21,13 +22,18 @@ def index(request):
 class StudentDetailView(DetailView):
     model = Student
 
+@permission_required('students.change_student', login_url=reverse_lazy('core:login'))
 @login_required(login_url=reverse_lazy('core:login'))
 def overview(request):
     student_user = None
     if request.user.is_authenticated():
         student_user = User.objects.get(username=request.user)
 
-    student = Student.objects.get(user=student_user)
+    try:
+        student = Student.objects.get(user=student_user)
+    except ObjectDoesNotExist:
+        return render(request, 'core/index.html')
+
     tools = Tool.objects.filter(author=student)
     return render(request, 'students/overview.html', context={'student': student, 'tools': tools})
 
@@ -40,6 +46,7 @@ def signup(request):
             user.refresh_from_db()  # load the profile instance created by the signal
             user.student.bio = form.cleaned_data.get('bio')
             user.student.phone_number = form.cleaned_data.get('phone_number')
+            user.groups.set(['students'])
             user.student.save()
             raw_password = form.clean_password2()
             user = authenticate(username=user.username, password=raw_password)

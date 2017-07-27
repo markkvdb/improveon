@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic.detail import DetailView
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
@@ -22,6 +22,7 @@ class ToolDetailView(DetailView):
     model = Tool
 
 
+@permission_required('tools.add_tool', login_url=reverse_lazy('core:login'))
 @login_required(login_url=reverse_lazy('core:login'))
 def register(request):
     if request.method == 'POST':
