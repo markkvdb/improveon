@@ -10,6 +10,7 @@ class Tool(models.Model):
     downloads = models.IntegerField(default=0)
     likes = models.IntegerField(default=0)
     author = models.ForeignKey(Student, on_delete=models.CASCADE)
+    file = models.FileField()
 
     def __str__(self):
         return self.name

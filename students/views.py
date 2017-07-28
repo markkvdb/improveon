@@ -6,6 +6,7 @@ from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.files import File
 
 from tools.models import Tool
 
@@ -21,6 +22,11 @@ def index(request):
 
 class StudentDetailView(DetailView):
     model = Student
+
+    def get_context_data(self, **kwargs):
+        context = super(StudentDetailView, self).get_context_data(**kwargs)
+        context['tools'] = Tool.objects.filter(author=context['student'])
+        return context
 
 @permission_required('students.change_student', login_url=reverse_lazy('core:login'))
 @login_required(login_url=reverse_lazy('core:login'))
@@ -39,13 +45,14 @@ def overview(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
+        form = SignUpForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             create_student.send(sender=User, instance=user)
             user.refresh_from_db()  # load the profile instance created by the signal
             user.student.bio = form.cleaned_data.get('bio')
             user.student.phone_number = form.cleaned_data.get('phone_number')
+            user.student.resume = File(request.FILES['resume'])
 
             # Add user to group
             students_group = Group.objects.get(name='students')

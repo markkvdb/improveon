@@ -6,4 +6,12 @@
     <h3>{{ student.user.first_name }} {{ student.user.last_name }}</h3>
 
     <p>{{ student.bio }}</p>
+
+
+    <h4>{{ student.user.first_name }}'s tools</h4>
+    <ul>
+    {% for tool in tools %}
+        <li><a href="{% url 'tools:detail' tool.id %}">{{ tool.name }}</a></li>
+    {% endfor %}
+    </ul>
 {% endblock %}

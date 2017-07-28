@@ -24,8 +24,8 @@
     </table>
 
     <h4>Download</h4>
-    {% if user.is_authenticated %}
-        <a class="button" href="#">Download</a>
+    {% if user.is_authenticated and tool.file %}
+        <a class="button" href="{{ tool.file.url }}">Download</a>
     {% else %}
         To download this tool, you need to login. <a href="{% url 'core:login' %}">Click here to login</a>
     {% endif %}

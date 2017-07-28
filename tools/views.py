@@ -26,7 +26,7 @@ class ToolDetailView(DetailView):
 @login_required(login_url=reverse_lazy('core:login'))
 def register(request):
     if request.method == 'POST':
-        form = ToolCreationForm(request.POST)
+        form = ToolCreationForm(request.POST, request.FILES)
         if form.is_valid():
             student_user = User.objects.get(username=request.user)
             student = Student.objects.get(user=student_user)
