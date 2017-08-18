@@ -1,10 +1,34 @@
 {% extends "base.html" %}
 
-{% block title %}{% endblock %}
+{% block title %}Homepage{% endblock %}
 
 
 {% block content %}
 
-    <p>This is the OG homepage.</p>
+    <h2>Tools</h2>
+    <div class="row">
+    {% for tool in tools %}
+        <div class="col-md-4 card">
+            <div class="card-body">
+                <h5 class="card-title">{{ tool.name }}</h5>
+                <p class="card-text">{{ tool.description }}</p>
+                <a class="btn btn-secondary" href="{% url 'tools:detail' tool.id %}" role="button">View details &raquo;</a>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+    <h2>Jobs</h2>
+    <div class="row">
+    {% for job in jobs %}
+        <div class="col-md-4 card">
+            <div class="card-body">
+                <h5 class="card-title">{{ job.name }}</h5>
+                <p class="card-text">{{ job.description }}</p>
+                <a class="btn btn-secondary" href="{% url 'jobs:detail' job.id %}" role="button">View details &raquo;</a>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
 
 {% endblock %}

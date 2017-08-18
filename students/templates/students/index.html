@@ -4,11 +4,16 @@
 
 {% block content %}
     <h3>Students</h3>
-    <p>This is the students index page.</p>
 
-    <ul>
-    {% for student in students %}
-    <li><a href="{% url 'students:detail' student.id %}">{{ student.user.first_name }}</a></li>
-    {% endfor %}
-    </ul>
+    <div class="row marketing">
+        {% for student in students %}
+            <div class="col-lg-4">
+                <img class="rounded-circle" src="{{ MEDIA_URL }}grey.gif" alt="Generic placeholder image" width="140" height="140">
+                <h2>{{ student.user.first_name }}</h2>
+                <p>{{ student.bio }}</p>
+                <p><a class="btn btn-secondary" href="{% url 'students:detail' student.id %}" role="button">View student &raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+        {% endfor %}
+    </div><!-- /.row -->
+
 {% endblock %}

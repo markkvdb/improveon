@@ -6,6 +6,8 @@ from django.shortcuts import redirect
 
 from students.models import Student
 from companies.models import Company
+from tools.models import Tool
+from jobs.models import Job
 
 
 # Create your views here.
@@ -35,7 +37,9 @@ def login_redirect(request):
         return redirect('companies:overview')
 
 def index(request):
-    return render(request, 'core/index.html')
+    jobs = Job.objects.all()[:3]
+    tools = Tool.objects.all()[:3]
+    return render(request, 'core/index.html', context={'jobs': jobs, 'tools': tools})
 
 def signup(request):
     return render(request, 'core/signup.html')

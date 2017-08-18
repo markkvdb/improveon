@@ -3,15 +3,42 @@
 {% block title %}{{ student.user.first_name }}{% endblock %}
 
 {% block content %}
-    <h3>{{ student.user.first_name }} {{ student.user.last_name }}</h3>
-
-    <p>{{ student.bio }}</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                {% if student.photo %}
+                    <img class="img-fluid" src="{{ student.photo.url }}" alt="{{ student.photo.name }}">
+                {% endif %}
+            </div>
+            <div class="col-md-9">
+                <h4>Information</h4>
+                <table class="table">
+                    <tr>
+                        <td>First name</td>
+                        <td>{{ student.user.first_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Last name</td>
+                        <td>{{ student.user.last_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Bio</td>
+                        <td>{{ student.bio }}</td>
+                    </tr>
+                    <tr>
+                        <td>Resume</td>
+                        <td>{% if student.resume %}<a href="{{ student.resume.url }}">{{ student.resume.name }}</a>{% else %}None{% endif %}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 
 
     <h4>{{ student.user.first_name }}'s tools</h4>
     <ul>
-    {% for tool in tools %}
-        <li><a href="{% url 'tools:detail' tool.id %}">{{ tool.name }}</a></li>
-    {% endfor %}
+        {% for tool in tools %}
+            <li><a href="{% url 'tools:detail' tool.id %}">{{ tool.name }}</a></li>
+        {% endfor %}
     </ul>
 {% endblock %}

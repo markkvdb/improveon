@@ -10,6 +10,7 @@ class Student(models.Model):
     bio = models.CharField(max_length=1000, blank=True)
     phone_number = models.IntegerField(blank=True, null=True)
     resume = models.FileField(null=True)
+    photo = models.ImageField(null=True)
 
     def __str__(self):
         return self.user.first_name + ' ' + self.user.last_name

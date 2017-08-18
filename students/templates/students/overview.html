@@ -3,31 +3,44 @@
 {% block title %}Overview{% endblock %}
 
 {% block content %}
-    <h4>Information</h4>
-    <table>
-        <tr>
-            <td>First name</td>
-            <td>{{ student.user.first_name }}</td>
-        </tr>
-        <tr>
-            <td>Last name</td>
-            <td>{{ student.user.last_name }}</td>
-        </tr>
-        <tr>
-            <td>Bio</td>
-            <td>{{ student.bio }}</td>
-        </tr>
-        <tr>
-            <td>Resume</td>
-            <td>{% if student.resume %}<a href="{{ student.resume.path }}">{{ student.resume.name }}</a>{% else %}None{% endif %}</td>
-        </tr>
-    </table>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                {% if student.photo %}
+                    <img class="img-fluid" src="{{ student.photo.url }}" alt="{{ student.photo.name }}">
+                {% endif %}
+            </div>
+            <div class="col-md-9">
+                <h4>Information</h4>
+                <table class="table">
+                    <tr>
+                        <td>First name</td>
+                        <td>{{ student.user.first_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Last name</td>
+                        <td>{{ student.user.last_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Bio</td>
+                        <td>{{ student.bio }}</td>
+                    </tr>
+                    <tr>
+                        <td>Resume</td>
+                        <td>{% if student.resume %}<a href="{{ student.resume.url }}">{{ student.resume.name }}</a>{% else %}None{% endif %}</td>
+                    </tr>
+                </table>
+                <a class="btn btn-primary" href="#">Change</a>
+            </div>
+        </div>
+    </div>
+
 
     <h4>Your tools</h4>
     <ul>
-    {% for tool in tools %}
-        <li><a href="{% url 'tools:detail' tool.id %}">{{ tool.name }}</a></li>
-    {% endfor %}
+        {% for tool in tools %}
+            <li><a href="{% url 'tools:detail' tool.id %}">{{ tool.name }}</a></li>
+        {% endfor %}
     </ul>
 
     <p>Register new tool <a href="{% url 'tools:register' %}">here.</a></p>

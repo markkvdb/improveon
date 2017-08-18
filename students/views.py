@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
+from django.core.files.images import ImageFile
 
 from tools.models import Tool
 
@@ -53,6 +54,7 @@ def signup(request):
             user.student.bio = form.cleaned_data.get('bio')
             user.student.phone_number = form.cleaned_data.get('phone_number')
             user.student.resume = File(request.FILES['resume'])
+            user.student.photo = ImageFile(request.FILES['photo'])
 
             # Add user to group
             students_group = Group.objects.get(name='students')
