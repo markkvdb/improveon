@@ -4,7 +4,7 @@
 
 {% block content %}
     <h4>Info</h4>
-    <table>
+    <table class="table">
         <tr>
             <td>Name</td>
             <td>{{ tool.name }}</td>
@@ -25,7 +25,7 @@
 
     <h4>Download</h4>
     {% if user.is_authenticated and tool.file %}
-        <a class="button" href="{{ tool.file.url }}">Download</a>
+        <a class="btn btn-primary" href="{{ tool.file.url }}">Download</a>
     {% else %}
         To download this tool, you need to login. <a href="{% url 'core:login' %}">Click here to login</a>
     {% endif %}
