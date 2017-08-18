@@ -30,7 +30,7 @@
                         <td>{% if student.resume %}<a href="{{ student.resume.url }}">{{ student.resume.name }}</a>{% else %}None{% endif %}</td>
                     </tr>
                 </table>
-                <a class="btn btn-primary" href="#">Change</a>
+                <a class="btn btn-primary" href="{% url 'students:change' %}">Change</a>
             </div>
         </div>
     </div>

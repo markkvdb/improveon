@@ -4,6 +4,16 @@
 
 
 {% block content %}
+    {% if not user.is_authenticated %}
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">Welcome!</h1>
+            <p>Find out how, as a company, you can benefit from using this platform by using student-made tools or place a job to let a student create a tool for you.
+            Students, find out how you can give your career a boost by creating tools used by real companies.</p>
+            <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+        </div>
+    </div>
+    {% endif %}
 
     <h2>Tools</h2>
     <div class="row">

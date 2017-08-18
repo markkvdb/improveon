@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/$', StudentDetailView.as_view(), name='detail'),
     url(r'^overview/', views.overview, name='overview'),
     url(r'^signup/', views.signup, name='signup'),
+    url(r'^change/', views.change_info, name='change'),
 ]

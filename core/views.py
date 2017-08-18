@@ -43,3 +43,15 @@ def index(request):
 
 def signup(request):
     return render(request, 'core/signup.html')
+
+# TODO Improve search function
+def search(request):
+    if request.method == 'GET':
+        search_list = request.GET.get('q')
+        try:
+            students = Student.objects.filter(bio__icontains=search_list)
+            return render(request, 'core/search.html', context={'students': students})
+        except:
+            pass
+
+    return render(request, 'core/search.html')

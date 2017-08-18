@@ -8,17 +8,29 @@ from django.shortcuts import redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
 from django.core.files.images import ImageFile
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from tools.models import Tool
 
 from .models import Student
-from .forms import SignUpForm
+from .forms import SignUpForm, ChangeForm
 from core.signals import create_student
 
 
 # Create your views here.
 def index(request):
-    students = Student.objects.all()[:5]
+    student_list = Student.objects.all().order_by('-id')
+    paginator = Paginator(student_list, 6)
+
+    page = request.GET.get('page')
+    try:
+        students = paginator.page(page)
+    except PageNotAnInteger:
+        students = paginator.page(1)
+    except EmptyPage:
+        students = paginator.page(paginator.num_pages)
+
+
     return render(request, 'students/index.html', context={'students': students})
 
 class StudentDetailView(DetailView):
@@ -43,6 +55,30 @@ def overview(request):
 
     tools = Tool.objects.filter(author=student)
     return render(request, 'students/overview.html', context={'student': student, 'tools': tools})
+
+@permission_required('students.change_student', login_url=reverse_lazy('core:login'))
+@login_required(login_url=reverse_lazy('core:login'))
+def change_info(request):
+    student_user = None
+    if request.user.is_authenticated():
+        student_user = User.objects.get(username=request.user)
+
+    try:
+        student = Student.objects.get(user=student_user)
+    except ObjectDoesNotExist:
+        return render(request, 'core/index.html')
+
+    if request.method == 'POST':
+        form = ChangeForm(request.POST, request.FILES, instance=student)
+        if form.is_valid():
+            student_user.email = form.cleaned_data['email']
+            form.save()
+            return redirect('students:overview')
+    else:
+        form = ChangeForm(instance=student)
+
+    return render(request, 'students/signup.html', {'form': form})
+
 
 def signup(request):
     if request.method == 'POST':
